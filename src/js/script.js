@@ -1,3 +1,5 @@
 import './lid/lid.js';
 
-$('div').hide().show();
+$('button').on('click', function() {
+    $(this).hide().show().toggleClass('active');
+});
