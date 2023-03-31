@@ -54,7 +54,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core.js */ "./src/js/lid/core.js");
 /* harmony import */ var _modules_display_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/display.js */ "./src/js/lid/modules/display.js");
 /* harmony import */ var _modules_classes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/classes.js */ "./src/js/lid/modules/classes.js");
-/* harmony import */ var _modules_actions_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/actions.js */ "./src/js/lid/modules/actions.js");
+/* harmony import */ var _modules_handler_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/handler.js */ "./src/js/lid/modules/handler.js");
+/* harmony import */ var _modules_actions_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/actions.js */ "./src/js/lid/modules/actions.js");
+
 
 
 
@@ -74,38 +76,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core.js */ "./src/js/lid/core.js");
 
 
-_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.on = function(eventName, callback) {
-    if (!eventName || !callback) {
-        return this;
-    }
-
-    for (let i = 0; i < this.length; i++) {
-        this[i].addEventListener(eventName, callback);
-    }
-    return this;
-};
-
-_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.off = function(eventName, callback) {
-    if (!eventName || !callback) {
-        return this;
-    }
-
-    for (let i = 0; i < this.length; i++) {
-        this[i].removeEventListener(eventName, callback);
-    }
-    return this;
-};
-
-_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function(handler) {
-    for (let i = 0; i < this.length; i++) {
-        if (handler) {
-            this[i].addEventListener('click', handler);
+_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.html = function(content) {
+    for (let i =  0; i < this.length; i++) {
+        if (content) {
+            this[i].innerHTML = content;
         } else {
-            this[i].click();
+            return this[i].innerHTML;
         }
     }
     return this;
-};
+}
+
+_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.eq = function(i) {
+    const swap = this[i];
+    const objLength = Object.keys(this).length
+
+
+    for (let  i = 0; i < objLength; i++) {
+        delete this[i];
+    }
+
+    this[0] = swap;
+    this.langth = 1;
+    return this;
+}
 
 
 
@@ -195,6 +189,51 @@ _core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggle = function () 
     return this;
 }
 
+/***/ }),
+
+/***/ "./src/js/lid/modules/handler.js":
+/*!***************************************!*\
+  !*** ./src/js/lid/modules/handler.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core.js */ "./src/js/lid/core.js");
+
+
+_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.on = function(eventName, callback) {
+    if (!eventName || !callback) {
+        return this;
+    }
+
+    for (let i = 0; i < this.length; i++) {
+        this[i].addEventListener(eventName, callback);
+    }
+    return this;
+};
+
+_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.off = function(eventName, callback) {
+    if (!eventName || !callback) {
+        return this;
+    }
+
+    for (let i = 0; i < this.length; i++) {
+        this[i].removeEventListener(eventName, callback);
+    }
+    return this;
+};
+
+_core_js__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function(handler) {
+    for (let i = 0; i < this.length; i++) {
+        if (handler) {
+            this[i].addEventListener('click', handler);
+        } else {
+            this[i].click();
+        }
+    }
+    return this;
+};
+
 /***/ })
 
 /******/ 	});
@@ -264,8 +303,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 $('button').on('click', function() {
-    $(this).hide().show().toggleClass('active');
+    $('div').eq(2).toggleClass('active');
 });
+
+// console.log($('button').html());
 
 })();
 
